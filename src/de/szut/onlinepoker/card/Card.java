@@ -24,14 +24,14 @@ public class Card {
 		
 		//assign the card a value of 0-12
 		value = 0;
-		char vc = ident.charAt(0);
+		char vc = ident.toUpperCase().charAt(0);
 		while(valuemap[value]!=vc){
 			value++;
 		}
 		
 		//map the colour to a number of 0-3
 		colnumber = 0;
-		char colo = ident.charAt(1);
+		char colo = ident.toLowerCase().charAt(1);
 		while(colormap[colnumber]!=colo){
 			colnumber++;
 		}
@@ -58,10 +58,16 @@ public class Card {
 	
 	/**
 	 * return the colour value
-	 * the worth of the colours are all the same,
+	 * the worth of the colours in the game are all the same,
 	 * but its easier to determine a flush with numbers
 	 */
 	public int getColourValue(){
 		return colnumber;
+	}
+	
+	
+	@Override
+	public String toString(){
+		return getIdentifier();
 	}
 }
