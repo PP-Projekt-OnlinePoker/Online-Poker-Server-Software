@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import de.szut.dqi12.holdem.helper.Event;
 import de.szut.dqi12.holdem.helper.Player;
+import de.szut.dqi12.holdem.helper.Table;
 import de.szut.dqi12.holdem.listener.CommunityActionListener;
 import de.szut.dqi12.holdem.listener.GameActionListener;
 
@@ -22,7 +23,7 @@ public class Server {
 	private ArrayList<Table> tables;
 	private CommunityActionListener communityActionListener;
 
-	public Server(Integer port, String fileName){
+	public Server(int port, String fileName){
 		this.log = new Log(new File(fileName));
 		try {
 			this.socket = new ServerSocket(port);
