@@ -1,4 +1,6 @@
-# PACKETS
+# PACKETS (Event)
+All JSON Keys are definied in the Event Class as static final. [Event.java](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/Event.java)
+
 ## Community Action Packets
 ### Login Packet
 
@@ -21,7 +23,7 @@
 ## Game Action Packets
 ### Raise Packet
 
-* REQUEST: { type: PacketType.RAISE, playerId: Integer, tableId: Integer, amount: Integer, commway: [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java)..REQUEST }
+* REQUEST: { type: PacketType.RAISE, playerId: Integer, tableId: Integer, amount: Integer, commway: [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).REQUEST }
 * ANSWER (good): { result: true, commway: [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).ANSWER } 
 * ANSWER (bad): { result: false, error: String, [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).ANSWER }
 
@@ -38,7 +40,19 @@
 * ANSWER (good): { result: true, commway: [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).ANSWER }
 * ANSWER (bad): { result: false, error: String, [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).ANSWER }
 * UPDATE: { playerId: Integer, commway: [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).UPDATE }
+
 ### All In Packet
-### Turn Packet
-### River Packet
-### Flop Packet
+
+* REQUEST: { type: PacketType.ALLIN, playerId: Integer, tableId: Integer, commway: CommWay.REQUEST }
+* ANSWER (good): { result: true, commway.ANSWER }
+* ANSWER (bad): { result: false, error: String }
+* UPDATE: { type: PacketType.ALLIN, playerid: Integer, commway: CommWay.UPDATE
+
+### Round switches
+These Packet indicate the beginning of a new round and their respective name as well as cards getting drawn.
+#### Turn Packet
+
+* REQUEST: { type: PacketType.TURN
+
+#### River Packet
+#### Flop Packet
