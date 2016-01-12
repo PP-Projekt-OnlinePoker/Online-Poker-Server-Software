@@ -4,8 +4,8 @@ import de.szut.dqi12.holdem.helper.Event;
 
 public interface GameActionListener {
 	
-	public void onRaise(Event e);
-	public void onFold(Event e);
-	public void onBet(Event e);
-	public void onCheck(Event e);
+	public Event onRaise(Event e);
+	public Event onFold(Event e);
+	public Event onBet(Event e);
+	public Event onCheck(Event e);
 }

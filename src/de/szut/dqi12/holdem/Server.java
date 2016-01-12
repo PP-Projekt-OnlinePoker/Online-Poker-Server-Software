@@ -32,6 +32,7 @@ public class Server {
 		}
 		
 		this.players = new ArrayList<Socket>();
+		this.tables = new ArrayList<Table>();
 	}
 
 	public void registerGameActionListener(GameActionListener listener){
@@ -39,27 +40,22 @@ public class Server {
 	}
 	
 	public void registerCommunityActionListener(CommunityActionListener listener){
-		
+		this.communityActionListener = listener;
 	}
 	
-	public Event recievePacket(ServerSocket socket){
-		Event event;
+	public Event recievePacket(ServerSocket socket) throws IOException{
+		Event event = null;
 		
 		if(gameActionListener == null || communityActionListener == null){
 			log.logError("Listener not registered.");
 		}else{
-			
-			
 			Socket client = socket.accept();
-			client.getInputStream();
 			
 			Scanner in = new Scanner(client.getInputStream());
 			
-			event = new Event(in.nextLine());
+			event = new Event(in.nextLine(), client);
 			
 		    //PrintWriter out = new PrintWriter( server.getOutputStream(), true );
-
-
 		}
 		
 		
@@ -69,7 +65,8 @@ public class Server {
 	public void handlePacket(Event e){
 		switch(e.getType()){
 		case BET:
-			this.gameActionListener.onBet(e);
+			Event event = this.gameActionListener.onBet(e);
+			updatePlayers(event);
 			break;
 		case FOLD:
 			this.gameActionListener.onFold(e);
@@ -80,13 +77,20 @@ public class Server {
 		case RAISE:
 			this.gameActionListener.onRaise(e);
 			break;
+		case LOGIN:
+			this.communityActionListener.onLogin(e);
 		default:
 			break;
 		}
 	}
 	
 	public Table getTableByTd(Integer tableId){
+		return tables.get(tableId);
 		
+	}
+	
+	public void updatePlayers(Event e){
+		this.tables.get(e.getTableId());
 	}
 
 }
