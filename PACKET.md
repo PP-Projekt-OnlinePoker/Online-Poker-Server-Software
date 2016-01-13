@@ -2,7 +2,7 @@
 All JSON Keys are definied in the Event Class as static final. [Event.java](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/Event.java)
 
 ## Community Action Packets
-### Login Packet /FB02
+### Login Packet /FB02/
 
 * REQUEST: { type: [PacketType](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).LOGIN, username: String, password: String, [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).REQUEST }
 * ANSWER (good): { result: true, playerId: Integer, bank: Integer, [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).ANSWER }
@@ -29,11 +29,15 @@ All JSON Keys are definied in the Event Class as static final. [Event.java](http
 * ANSWER (good): { result: true, players: [ 1: [ username: String, stake: Integer] 2: [ username: String, stake: Integer] ], commway: [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).ANSWER }
 * ANSWER (bad): { result: false, error: String, commway: [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).ANSWER }
 
-### Get Table List UpdatePacket
+### Get Table List Update Packet (/FL03/)
 
 * REQUEST: { type: [PacketType](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).TABLELIST, commway: [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).REQUEST }
 * ANSWER (good): { result: true, tables: [ 1: [ tableId: Integer, tablename: String ], 2: [ tableId: Integer, tablename: String ] ], commway: [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).ANSWER }
 * ANSWER (bad): { result: false, error: String, commway: [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).ANSWER }
+
+### Create Table Packet /FL01/
+
+*
 
 ## Game Action Packets
 ### Fold Packet /FS03/
