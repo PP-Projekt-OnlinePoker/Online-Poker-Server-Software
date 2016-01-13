@@ -1,7 +1,7 @@
 # PACKETS (Events)
 All JSON Keys are definied in the Event Class as static final. [Event.java](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/Event.java)
 
-## Community Action Packets
+## Community Action Packets (Userfunctions)
 ### Login Packet /FB02/
 
 * REQUEST: { type: [PacketType](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).LOGIN, username: String, password: String, [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).REQUEST }
@@ -39,7 +39,7 @@ All JSON Keys are definied in the Event Class as static final. [Event.java](http
 
 *
 
-## Game Action Packets
+## Game Action Packets (Gamefunctions)
 ### Fold Packet /FS03/
 
 
