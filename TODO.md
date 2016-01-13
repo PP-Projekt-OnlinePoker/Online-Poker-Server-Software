@@ -17,3 +17,9 @@
 ## Mehmet-Akif Göle
 * Community GUI (Client)
 * Database Controller (SQLite)
+
+# General Coding Conventions
+* Package Name: de.szut.onlinepoker
+* Commenting: JavaDoc (Language: English(prefered)/German)
+* Camel Case Variable Names
+* specific Functions and Function Names
