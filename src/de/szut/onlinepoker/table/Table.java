@@ -1,51 +1,62 @@
 package de.szut.onlinepoker.table;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 import de.szut.onlinepoker.card.Card;
 import de.szut.onlinepoker.card.Deck;
-import de.szut.onlinepoker.game.Player;
-import de.szut.onlinepoker.game.Pot;
+import de.szut.onlinepoker.player.TablePlayer;
 
 
 public class Table {
 
 	
-	private Player activePlayer;
-	private ArrayList<Player> plys;
+	private TablePlayer activePlayer;
+	private TablePlayer[] plys;
 	private ArrayList<Pot> pots; //main and side pots
 	private Deck deck;
-	private int smallBlind;
-	private int bigBlind;
+	private final int smallBlind;
+	private final int bigBlind;
 	private int dealInd;
 	private Card[] comu;
 	private int roundPlrNr;
 	private int actvPlrIndx;
 	private int notPassed;
 	private final int ID;
-	private int maxBet;
-	private int maxPlayerCount;
+	private final int maxBet;
+	private final int maxPlayerCount;
+	
+	
+	
 	
 	public int getMaxBet() {
 		return maxBet;
 	}
 
-	public void setMaxBet(int maxBet) {
-		this.maxBet = maxBet;
-	}
+	
 
 	public int getMaxPlayerCount() {
 		return maxPlayerCount;
 	}
 
-	public void setMaxPlayerCount(int maxPlayerCount) {
-		this.maxPlayerCount = maxPlayerCount;
-	}
-
-	public Table(int id){
-		ID=id;
+	
+	/**
+	 * TableConfiguration is final and cant be altered afterwards
+	 * 
+	 * @param cfg
+	 */
+	public Table(TableConfiguration cfg){
+		ID=cfg.getID();
 		this.dealInd=0;
-		//deck = new Deck();
+		maxPlayerCount = cfg.getMaxPlayer();
+		if(maxPlayerCount>9 || maxPlayerCount<0){
+			throw new InvalidParameterException("Invalid number of player");
+		}
+		plys = new TablePlayer[maxPlayerCount];
+		smallBlind = cfg.getSmallBlind();
+		bigBlind = 2*smallBlind;
+		maxBet = cfg.getMaxBet();
+		deck = new Deck();
 		//newRound();
 	}
 	
@@ -55,20 +66,18 @@ public class Table {
 	
 	public void newRound(){
 		deck.reInit();
-		roundPlrNr = plys.size();
+		roundPlrNr = 0;
+		for(TablePlayer p:plys){
+			if(p!=null){
+				roundPlrNr++;
+			}
+		}
 		notPassed=roundPlrNr;
 		dealInd = (dealInd+1)%roundPlrNr;
 		
 	}
 	
-	/**
-	 * sets the small blind and indirect the big blind
-	 * @param smllB
-	 */
-	public void setSmallBlind(int smllB){
-		this.smallBlind=smllB;
-		this.bigBlind=2*smallBlind;
-	}
+	
 	
 	public int getSmallBlind(){
 		return smallBlind;
@@ -82,16 +91,24 @@ public class Table {
 	 * adds a player to the table
 	 * @param p
 	 */
-	public void addPlayer(Player p){
-		plys.add(p);
+	public void addPlayer(TablePlayer p){
+		for(TablePlayer play:plys){
+			if(play==null){
+				play=p;
+			}
+		}
 	}
 	
 	/**
 	 * removes a player from the table
 	 * @param p
 	 */
-	public void removePlayer(Player p){
-		plys.remove(p);
+	public void removePlayer(TablePlayer p){
+		for(TablePlayer play:plys){
+			if(play==p){
+				play = null;
+			}
+		}
 	}
 	
 	
@@ -104,7 +121,7 @@ public class Table {
 			dealInd = (start+1)%roundPlrNr;
 			while(dealInd!=start){
 				plys.get(dealInd).setCard(deck.draw(), i);
-				plys.get(dealInd).setIngame(true);
+				plys.get(dealInd).setFold(false);
 				dealInd = (dealInd+1)%roundPlrNr;
 			}
 		}
@@ -140,14 +157,14 @@ public class Table {
 		return dealInd;
 	}
 	
-	public Player getActivePlayer(){
+	public TablePlayer getActivePlayer(){
 		return activePlayer;
 	}
 	
 	public void foldPlayer(){
 		
 		activePlayer = getActivePlayer();
-		activePlayer.setIngame(false);
+		activePlayer.setFold(true);
 		notPassed--;
 		for(Pot p:pots){
 			p.removePlayer(activePlayer);
