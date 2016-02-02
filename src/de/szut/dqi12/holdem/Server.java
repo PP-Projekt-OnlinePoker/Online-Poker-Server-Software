@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,9 +14,9 @@ import de.szut.dqi12.holdem.handler.TableHandle;
 import de.szut.dqi12.holdem.helper.Event;
 import de.szut.dqi12.holdem.helper.Player;
 import de.szut.dqi12.holdem.helper.Table;
+import de.szut.onlinepoker.database.DbHandler;
 public class Server {
 
-	private Log log;
 	private ServerSocket socket;
 	
 	private static Server instance = null;
@@ -25,16 +26,12 @@ public class Server {
 	private ArrayList<TableHandle> tables;
 
 	private Server(){
-		db = new DbHandler();
-//		this.log = new Log(new File(fileName));
-//		try {
-//			this.socket = new ServerSocket(port);
-//		} catch (IOException e) {
-//			this.log.logError(e.getStackTrace().toString());
-//		}
-//		
-//		this.players = new ArrayList<PlayerHandle>();
-//		this.tables = new ArrayList<TableHandle>();
+		try {
+			db = new DbHandler();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -49,11 +46,11 @@ public class Server {
 		return instance;
 	}
 	
-	public boolean login(Player player){
-		if(db.validatePlayer(player)){
-			
+	public Event login(Event e){
+		if(db.validatePlayer(e., player)){
+			return new Event();
 		}else{
-			
+			return new Event(player.get);
 		}
 	}
 	

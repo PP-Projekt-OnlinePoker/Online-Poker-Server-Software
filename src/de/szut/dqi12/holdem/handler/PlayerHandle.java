@@ -22,7 +22,8 @@ public class PlayerHandle implements Runnable {
 	private boolean isInTable;
 	
 	private static final String ERROR_MSG = "Konnte die Aktion nicht ausführen.";
-
+	private static final String ERROR_LOGIN = "Falsches Passwort oder Username.";
+	
 	public PlayerHandle(Socket client){
 		this.loggedIn = false;
 		this.isInTable = false;
