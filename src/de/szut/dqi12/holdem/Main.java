@@ -7,7 +7,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Server.getInstance();
+		MasterServer.getInstance();
 	}
 
 }

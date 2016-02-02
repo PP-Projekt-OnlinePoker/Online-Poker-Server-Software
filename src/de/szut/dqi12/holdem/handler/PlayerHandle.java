@@ -8,7 +8,7 @@ import java.util.Scanner;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import de.szut.dqi12.holdem.Server;
+import de.szut.dqi12.holdem.MasterServer;
 import de.szut.dqi12.holdem.exceptions.CouldntAnswerException;
 import de.szut.dqi12.holdem.helper.Event;
 import de.szut.dqi12.holdem.helper.Table;
@@ -66,13 +66,13 @@ public class PlayerHandle implements Runnable {
 		case CHECK:
 		case FOLD:
 		case RAISE:
-			Server.getInstance().getTableById(currentTableId).handleEvent(e);
+			MasterServer.getInstance().getTableById(currentTableId).handleEvent(e);
 			break;
 		case CREATETABLE:
 			
 			break;
 		case GETTABLELIST:
-			answer = Server.getInstance().getTableListEvent();
+			answer = MasterServer.getInstance().getTableListEvent();
 			break;
 		case JOINTABLE:
 			break;
