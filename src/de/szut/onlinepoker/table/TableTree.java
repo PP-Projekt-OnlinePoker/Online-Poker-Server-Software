@@ -1,5 +1,7 @@
 package de.szut.onlinepoker.table;
 
+import java.util.ArrayList;
+
 public class TableTree {
 
 	private TableNode root;
@@ -187,9 +189,45 @@ public class TableTree {
 	}
 	
 	private int size(TableNode root){
+
 		if(root==null){
 			return 0;
 		}
 		return size(root.getLeft())+size(root.getRight())+1;
 	}
+	
+	
+	/**
+	 * 
+	 * @return a sorted arry of all tables
+	 */
+	public Table[] inorder(){
+		int size = size();
+		Table[] toret = new Table[size];
+		ArrayList<TableNode> temp = new ArrayList<TableNode>(size);
+		temp = inorder(root, temp);
+		for(int i = 0; i<size; i++){
+			toret[i] = temp.get(i).getTable();
+		}
+		return toret;
+	}
+	
+	private ArrayList<TableNode> inorder(TableNode root, ArrayList<TableNode> toSave){
+		TableNode left = root.getLeft();
+		TableNode right = root.getRight();
+		
+		if(left!=null){
+			toSave = inorder(left, toSave);
+		}
+		toSave.add(root);
+		if(right!=null){
+			toSave = inorder(right, toSave);
+		}
+		return toSave;
+	}
+	
+	
+	
+	
+	
 }
