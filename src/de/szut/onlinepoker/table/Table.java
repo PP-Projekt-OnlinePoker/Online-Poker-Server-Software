@@ -8,7 +8,7 @@ import de.szut.onlinepoker.card.Deck;
 import de.szut.onlinepoker.player.TablePlayer;
 
 
-public class Table {
+public class Table implements Runnable {
 
 	
 	private TablePlayer activePlayer;
@@ -26,7 +26,7 @@ public class Table {
 	private final int maxBet;
 	private final int maxPlayerCount;
 	
-	
+	private boolean terminated;
 	
 	
 	public int getMaxBet() {
@@ -57,7 +57,6 @@ public class Table {
 		bigBlind = 2*smallBlind;
 		maxBet = cfg.getMaxBet();
 		deck = new Deck();
-		//newRound();
 	}
 	
 	public int getID(){
@@ -73,10 +72,25 @@ public class Table {
 			}
 		}
 		notPassed=roundPlrNr;
-		dealInd = (dealInd+1)%roundPlrNr;
+		dealInd = (dealInd+1)%maxPlayerCount;
 		
 	}
 	
+	private void preflop(){
+		
+	}
+	
+	private void flop(){
+		
+	}
+	
+	private void turn(){
+		
+	}
+	
+	private void river(){
+		
+	}
 	
 	
 	public int getSmallBlind(){
@@ -180,6 +194,51 @@ public class Table {
 	}
 	
 	public void destroy(){
+		
+	}
+
+
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(!terminated){
+			newRound();
+			payBlinds();
+			betRound((dealInd+2)%maxPlayerCount);
+			deck.draw();
+			deck.draw();
+			deck.draw();
+			for(int i=0;i<5;i++){
+				
+				betRound(dealInd);
+			}
+			
+			
+			
+			
+		}
+		
+		
+	}
+
+
+
+	private void betRound(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	private void payBlinds() {
+		// TODO Auto-generated method stub
+		
+		int smallBlindIndex = (dealInd+1)%maxPlayerCount;
+		while(plys[smallBlindIndex]==null){
+			smallBlindIndex = (dealInd+1)%maxPlayerCount;
+		}
+		plys[smallBlindIndex].substractMoney();
 		
 	}
 	

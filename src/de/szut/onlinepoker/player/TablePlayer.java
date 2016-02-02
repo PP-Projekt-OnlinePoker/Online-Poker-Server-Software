@@ -8,6 +8,7 @@ public class TablePlayer {
 	private boolean fold;
 	private Card[] cards;
 	private boolean allIn;
+	private int money;
 	
 	public void setFold(boolean f){
 		fold = f;
@@ -35,6 +36,16 @@ public class TablePlayer {
 	
 	public boolean isAllIn(){
 		return allIn;
+	}
+
+	public void addMoney(int money) {
+		// TODO Auto-generated method stub
+		amount+=money;
+	}
+
+	public void substractMoney(int money) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
