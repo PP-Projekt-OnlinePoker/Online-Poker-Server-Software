@@ -23,3 +23,4 @@
 * Commenting: JavaDoc (Language: English(prefered)/German)
 * Camel Case Variable Names
 * specific Functions and Function Names
+* JavaSE-1.7 (jre1.8.0_45)
