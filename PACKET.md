@@ -44,8 +44,6 @@ All JSON Keys are definied in the Event Class as static final. [Event.java](http
 ### Call Packet /FS04/
 
 * REQUEST: { type: PacketType.CALL, playerId: Integer, tableId: Integer, commway.REQUEST }
-* ANSWER (good): { result: true, commway.ANSWER }
-* ANSWER (bad): { result: false, error: String, commway.ANSWER }
 
 ### Bet Packet /FS01/
 
