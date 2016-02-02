@@ -18,9 +18,14 @@ public class PlayerHandle implements Runnable {
 	private Socket clientSocket;
 	private Scanner in;
 	private boolean loggedIn;
+	private Integer currentTableId;
+	private boolean isInTable;
+	
+	private static final String ERROR_MSG = "Konnte die Aktion nicht ausführen.";
 
 	public PlayerHandle(Socket client){
 		this.loggedIn = false;
+		this.isInTable = false;
 		this.clientSocket = client;
 	}
 	
@@ -40,7 +45,7 @@ public class PlayerHandle implements Runnable {
 	}
 	
 	/**
-	 * <code>recievePacket</code> is the function the recieve a Packet.
+	 * <code>recievePacket</code> is the function that recieves a Packet.
 	 * 
 	 * @param clientScanner The scanner corrospondend to the client that this handle handles.
 	 * @return Returns the corrosponding Event that occured.
@@ -49,9 +54,9 @@ public class PlayerHandle implements Runnable {
 		return Event.fromString(clientScanner.nextLine(), clientSocket);
 	}
 	
-	public Event handleEvent(Event e){
+	public void handleEvent(Event e){
 		
-		Event answer;
+		Event answer = new Event(e.getClientSocket(), ERROR_MSG);
 		
 		switch(e.getType()){
 		case ALLIN:
@@ -60,39 +65,31 @@ public class PlayerHandle implements Runnable {
 		case CHECK:
 		case FOLD:
 		case RAISE:
-			answer = new Event();
+			Server.getInstance().getTableById(currentTableId).handleEvent(e);
 			break;
 		case CREATETABLE:
+			
 			break;
-		
 		case GETTABLELIST:
-			answerWithTableList(Event e);
+			answer = Server.getInstance().getTableListEvent();
 			break;
 		case JOINTABLE:
 			break;
 		case LOGIN:
 			break;
 		case LOGOUT:
-			if(this.login())
+			
 			break;
 		
 		case REGISTER:
 			break;
-		case STATUS:
-			break;
 		default:
-			answer = new Event();
+			answer = new Event(e.getClientSocket(), ERROR_MSG);
 			break;
 		
 		
 		}
 		
-		return answer;
-	}
-	
-	public void answerWithTableList(Event e) throws CouldntAnswerException{
-		ArrayList<Table> tables = Server.getInstance().getTableList();
-		Event answer = new Event(tables);
 		e.answer(answer);
 	}
 }

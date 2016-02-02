@@ -56,6 +56,18 @@ public class Server {
 		}
 	}
 	
+	public Event createTable(Table table){
+		
+	}
+	
+	public Event getTableListEvent(){
+		return new Event(getTableList());
+	}
+	
+	public void joinTableById(Integer tableId){
+		
+	}
+	
 	public ArrayList<Table> getTableList(){
 		
 	}
@@ -66,7 +78,8 @@ public class Server {
 	}
 	
 	public void updatePlayers(Event e){
-		this.tables.get(e.getTableId());
+		TableHandle table = this.tables.get(e.getTableId());
+		table.updatePlayers(e);
 	}
 	
 	public PlayerHandle getPlayerHandleById(Integer playerId){

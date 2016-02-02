@@ -197,6 +197,15 @@ public class Event {
 		this.commWay = comm;
 	}
 	
+	public Socket getClientSocket(){
+		return socket;
+	}
+	/**
+	 * To answer to the Event that occured.
+	 * 
+	 * @param e
+	 * @throws CouldntAnswerException
+	 */
 	public void answer(Event e) throws CouldntAnswerException{
 		if(!(e.commWay == CommWay.ANSWER)){
 			throw new CouldntAnswerException();
