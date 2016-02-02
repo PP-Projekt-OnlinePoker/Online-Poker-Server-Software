@@ -120,8 +120,8 @@ public class Table {
 		for(int i=0;i<2;i++){
 			dealInd = (start+1)%roundPlrNr;
 			while(dealInd!=start){
-				plys.get(dealInd).setCard(deck.draw(), i);
-				plys.get(dealInd).setFold(false);
+				plys[dealInd].setCard(deck.draw(), i);
+				plys[dealInd].setFold(false);
 				dealInd = (dealInd+1)%roundPlrNr;
 			}
 		}

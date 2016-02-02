@@ -28,7 +28,7 @@ public class DbHandler {
 		Class.forName("org.sqlite.JDBC");
 		c = DriverManager.getConnection("jdbc:sqlite:database.db");
 		System.out.println("Opened database successfully");
-		stmt = c.createStatement();s
+		stmt = c.createStatement();
 	}
 
 	public void CreateTable() {
