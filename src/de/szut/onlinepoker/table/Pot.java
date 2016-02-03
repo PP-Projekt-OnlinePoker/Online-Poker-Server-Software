@@ -4,20 +4,22 @@ import java.util.ArrayList;
 
 import de.szut.onlinepoker.player.TablePlayer;
 
+
+/**
+ * Represents a poker pot
+ * not much function, 
+ * but can be extended for sidepots later
+ * @author Fabian
+ *
+ */
 public class Pot {
 
 	private int amount=0;
-	private ArrayList<TablePlayer> payed;
 	
-	public void addPlayer(TablePlayer p){
-		if(!payed.contains(p)){
-			payed.add(p);
-		}
-		
-	}
 	
-	public void removePlayer(TablePlayer p){
-		payed.remove(p);
+	
+	public void setMoney(int money){
+		amount=money;
 	}
 	
 	

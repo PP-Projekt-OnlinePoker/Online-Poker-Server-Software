@@ -3,6 +3,15 @@ package de.szut.onlinepoker.card;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
+
+
+/**
+ * Class for evaluating Hands
+ * higher values means better hands
+ * also provides type of hand(e.g. pair etc..)
+ * @author Fabian
+ *
+ */
 public class HandEvaluator {
 
 	private Card[] cards;
@@ -21,19 +30,28 @@ public class HandEvaluator {
 	public static int HIGH_CARD = 1;
 
 	public HandEvaluator(Card[] cardss) {
-		if (cardss.length != 7) {
-			throw new InvalidParameterException("number of cards must be 7");
-		}
 		this.cards = cardss;
 		evaluateCards();
 	}
+	
+	public HandEvaluator(){
+		
+	}
 
+	public void setCards(Card[] ca){
+		cards = ca;
+		evaluateCards();
+	}
+	
 	/**
-	 * evaluates the cards and returns a value representating the strength of a
+	 * evaluates the cards and sets a value representing the strength of a
 	 * hand the higher the value, the stronger the hand
 	 */
 	private void evaluateCards() {
 
+		if (cards.length != 7) {
+			throw new InvalidParameterException("number of cards must be 7");
+		}
 		ArrayList<Card> temp = new ArrayList<Card>();
 		ArrayList<Card> oth = new ArrayList<Card>();
 		boolean flush = false;
@@ -83,7 +101,7 @@ public class HandEvaluator {
 						return;
 					}
 					this.type = HandEvaluator.STRAIGHT_FLUSH;
-					value = 60000000-toCheck[3].getNumberValue();
+					value = 59999900+toCheck[3].getNumberValue();
 					return;
 				}
 
@@ -235,7 +253,7 @@ public class HandEvaluator {
 	/**
 	 * sorts the cards by rank with ace high the highest card will have index 0
 	 */
-	public Card[] sortByRank(Card[] c) {
+	private Card[] sortByRank(Card[] c) {
 		Card tempCard;
 		int k;
 		for (int i = 0; i < c.length; i++) {
@@ -254,7 +272,7 @@ public class HandEvaluator {
 	/**
 	 * sorts the cards by colour diamonds spades clubs spades from low to high
 	 */
-	public Card[] sortByColour(Card[] c) {
+	private Card[] sortByColour(Card[] c) {
 
 		Card tempCard;
 		int k;
@@ -271,10 +289,20 @@ public class HandEvaluator {
 		return c;
 	}
 
+	
+	/**
+	 * 
+	 * @return the type of the hand
+	 */
 	public int getType() {
 		return type;
 	}
 
+	
+	/**
+	 * 
+	 * @return the value of the hand
+	 */
 	public int getValue() {
 		return value;
 	}
