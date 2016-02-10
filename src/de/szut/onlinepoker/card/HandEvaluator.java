@@ -17,6 +17,8 @@ public class HandEvaluator {
 	private Card[] cards;
 	private int value;
 	private int type;
+	private ArrayList<Card> temp;
+	private ArrayList<Card> oth;
 
 	public static int ROYALFLUSH = 10;
 	public static int STRAIGHT_FLUSH = 9;
@@ -32,10 +34,14 @@ public class HandEvaluator {
 	public HandEvaluator(Card[] cardss) {
 		this.cards = cardss;
 		evaluateCards();
+		temp = new ArrayList<Card>();
+		oth = new ArrayList<Card>();
 	}
 	
 	public HandEvaluator(){
 		
+		temp = new ArrayList<Card>();
+		oth = new ArrayList<Card>();
 	}
 
 	public void setCards(Card[] ca){
@@ -48,32 +54,34 @@ public class HandEvaluator {
 	 * hand the higher the value, the stronger the hand
 	 */
 	private void evaluateCards() {
-
+		
 		if (cards.length != 7) {
 			throw new InvalidParameterException("number of cards must be 7");
 		}
-		ArrayList<Card> temp = new ArrayList<Card>();
-		ArrayList<Card> oth = new ArrayList<Card>();
 		boolean flush = false;
 		boolean three = false;
 		int size = 0;
 		int kicker = 0;
-
-		cards = sortByColour(cards);
+		
+		temp.clear();
+		oth.clear();
+		
+		
+		sortByColour(cards);
 
 		// if a flush exists, the card in the middle
 		// of the sorted array must have the same colour as the flush
 		int flushcolour = cards[3].getColourValue();
 
 		// add all cards of the same colour
-		for (Card c : cards) {
+		for (Card c:cards) {
 			if (c.getColourValue() == flushcolour) {
 				temp.add(c);
 			}
 		}
 
 		// checks if there are 5 or more cards with the flushcolour
-		if (temp.size() >= 5) {
+		if (temp.size() >=5) {
 			flush = true;
 		} else {
 			temp.clear();
@@ -85,31 +93,45 @@ public class HandEvaluator {
 		// so we only check for them
 		// four of a kind and full house aren't possible anymore
 		if (flush) {
+			size = temp.size();
+			Card[] toCheck = new Card[size];
+			toCheck = temp.toArray(toCheck);
+			
+			sortByRank(toCheck);
 
-			Card[] toCheck = sortByRank(temp.toArray(new Card[temp.size()]));
-
-			value = 25000 * toCheck[0].getNumberValue() + 2000 * toCheck[1].getNumberValue()
-					+ 200 * toCheck[2].getNumberValue() + 20 * toCheck[3].getNumberValue()
-					+ 2 * toCheck[4].getNumberValue();
+			if (toCheck[0].getNumberValue() == 12 && toCheck[4].getNumberValue()==8) {
+				this.type = HandEvaluator.ROYALFLUSH;
+				value = 0b1100000000000000;
+				return;
+			}
+			
 			// straight flush
-			for (int i = 0; i < (toCheck.length - 5); i++) {
-				if (toCheck[i].getNumberValue() - toCheck[i + 4].getNumberValue() == 4) {
+			int q = 0;
+			do{
+				if ((toCheck[q].getNumberValue() - toCheck[q + 4].getNumberValue()) == 4) {
 					// royal flush
-					if (toCheck[1].getNumberValue() == 11) {
-						this.type = HandEvaluator.ROYALFLUSH;
-						value = 60000000;
-						return;
-					}
 					this.type = HandEvaluator.STRAIGHT_FLUSH;
-					value = 59999900+toCheck[3].getNumberValue();
+					value = 0b1000000000000000 ^ toCheck[q].getNumberValue();
 					return;
 				}
-
+				q++;
+			}while(q<toCheck.length-4);
+			if(toCheck[toCheck.length-1].getNumberValue() == 0 && toCheck[toCheck.length-4].getNumberValue()== 3 ){
+				if(toCheck[0].getNumberValue()==12){
+					this.type = HandEvaluator.STRAIGHT_FLUSH;
+					value = 0b1000000000000000 ^ 256 * toCheck[toCheck.length-1].getNumberValue();
+					return;
+				}
 			}
+			
+			value = 0b0101000000000000 ^ (256*toCheck[0].getNumberValue() + 64 * toCheck[1].getNumberValue()
+					+ 32 * toCheck[2].getNumberValue() +  8* toCheck[3].getNumberValue()
+					+ toCheck[4].getNumberValue());
+			type = FLUSH;
 
 			// no flush
 		}
-
+		temp.clear();
 		sortByRank(cards);
 		// four of a kind
 		int poss = cards[3].getNumberValue();
@@ -123,11 +145,11 @@ public class HandEvaluator {
 		}
 		if (temp.size() == 4) {
 			type = FOUR_OF_A_KIND;
-			value = 4300000* (temp.get(0).getNumberValue()+1)+oth.get(0).getNumberValue();
+			value = 0b0111000000000000 ^ (256*temp.get(0).getNumberValue())+oth.get(0).getNumberValue();
 			return;
 		}
 		temp.clear();
-
+		oth.clear();
 		// full house
 		int j = 1;
 		temp.add(cards[0]);
@@ -145,10 +167,10 @@ public class HandEvaluator {
 					oth.add(c);
 				}
 			}
-			for (int i = 0; i < 2; i++)
+			for (int i = 0; i < 3; i++)
 				if (oth.get(i).getNumberValue() == oth.get(i + 1).getNumberValue()) {
 					type = FULL_HOUSE;
-					value = 325000 * (temp.get(0).getNumberValue()+1)+oth.get(0).getNumberValue();
+					value = 0b0110000000000000 ^ (256*temp.get(0).getNumberValue()+256)+oth.get(i).getNumberValue();
 					return;
 				}
 
@@ -157,7 +179,7 @@ public class HandEvaluator {
 				return;
 			}
 			three = true;
-			value = 4000 * (temp.get(0).getNumberValue()) + 13 * oth.get(0).getNumberValue()
+			value = 0b0011000000000000 ^ (256*temp.get(0).getNumberValue()) + 16 * oth.get(0).getNumberValue()
 					+ oth.get(1).getNumberValue();
 
 		}
@@ -177,6 +199,7 @@ public class HandEvaluator {
 			curVal = cards[j].getNumberValue();
 			if (lastVal - curVal > 1) {
 				temp.clear();
+				temp.add(cards[j]);
 			}else if(lastVal - curVal == 1){
 				temp.add(cards[j]);
 				
@@ -187,14 +210,14 @@ public class HandEvaluator {
 		size = temp.size();
 		if (size == 5) {
 			type = STRAIGHT;
-			value = 20000 * (temp.get(0).getNumberValue());
+			value = 0b0100000000000000 ^  (temp.get(0).getNumberValue());
 			return;
 
 			// special case ace low
 		} else if (size == 4) {
 			if (cards[0].getNumberValue() == 12 && temp.get(0).getNumberValue() == 3) {
 				type = STRAIGHT;
-				value = 20000 * (temp.get(0).getNumberValue());
+				value = 0b0100000000000000 ^ (temp.get(0).getNumberValue());
 				return;
 			}
 		}
@@ -225,18 +248,18 @@ public class HandEvaluator {
 				kicker = c.getNumberValue();
 
 				if (kicker != frstPrVl && kicker != scndPrVl) {
-					value = 300 * (frstPrVl) + kicker;
+					value = 0b0010000000000000 ^ (32*frstPrVl) + kicker;
 				}
 			}
 			return;
 		}
 		// pair
-		if (size == 2) {
+		if (size >= 2) {
 			type = PAIR;
 			for (Card c : cards) {
 				kicker = c.getNumberValue();
 				if (kicker != temp.get(0).getNumberValue()) {
-					value = 20 * (temp.get(0).getNumberValue() + 1) + kicker;
+					value = 0b0001000000000000 ^ (32*temp.get(0).getNumberValue()) + kicker;
 					return;
 				}
 			}
@@ -244,7 +267,7 @@ public class HandEvaluator {
 
 		// high card
 		type = HIGH_CARD;
-		value = cards[0].getNumberValue() + 1;
+		value = 0b0000000000000000 ^ cards[0].getNumberValue() + 1;
 
 		return;
 
