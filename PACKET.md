@@ -12,6 +12,8 @@ All JSON Keys are definied in the Event Class as static final. [Event.java](http
 
 ### Logout Packet /FB03/
 
+* REQUEST: { type: PacketType.LOGOUT, playerid: Integer, commWay.REQUEST}
+
 ### Password Reset Packet /FB04/ (Wunschkriterium)
 
 ### Password Change Packet /FB05/ (Wunschkriterium)
@@ -36,6 +38,7 @@ All JSON Keys are definied in the Event Class as static final. [Event.java](http
 ## Game Action Packets (Gamefunctions)
 ### Fold Packet /FS03/
 
+* REQUEST: {type: PacketType.FOLD, playerid: Integer, tableid:Integer, commWay.REQUEST}
 
 ### Raise Packet /FS02/ 
 
@@ -60,6 +63,7 @@ All JSON Keys are definied in the Event Class as static final. [Event.java](http
 ### Round switches
 These Packet indicate the beginning of a new round and their respective name as well as cards getting drawn.
 #### Table Begin Packet
+#### Flop Packet
 #### Turn Packet
 #### River Packet
 #### Flop Packet
@@ -67,7 +71,7 @@ These Packet indicate the beginning of a new round and their respective name as 
 ## Table Status Packet
 This is the answer to all Game Action Packets.
 
-* UPDATE: 
+* UPDATE: {type: PacketType.STATUS, tableid: Integer, player: [{name: String, chips: Integer, betted: Integer, fold: boolean}], pot: Integer, cards: [{cardIdentifier: String}], activePlayerIndex: Integer}
 
 ## Answer Packet
 
