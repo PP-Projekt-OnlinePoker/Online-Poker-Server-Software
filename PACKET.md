@@ -69,12 +69,12 @@ These Packet indicate the beginning of a new round and their respective name as 
 #### Turn Packet
 #### River Packet
 #### End Packet
-* UPDATE: { type: PacketType.STATUS, tableId: Integer, cards: [{cardIdentifier: String, cardIdentifier: String}] winner: [playerIndex: Integer]}
+* UPDATE: { type: PacketType.END, tableId: Integer, cards: [{cardIdentifier: String, cardIdentifier: String}] winner: [playerIndex: Integer], commWay: CommWay.UPDATE}
 
 ## Table Status Packet
 This is the answer to all Game Action Packets.
 
-* UPDATE: { type: PacketType.STATUS, tableid: Integer, player: [{name: String, chips: Integer, betted: Integer, fold: boolean}], pot: Integer, cards: [{cardIdentifier: String}], activePlayerIndex: Integer }
+* UPDATE: { type: PacketType.STATUS, tableid: Integer, player: [{name: String, chips: Integer, betted: Integer, fold: boolean}], pot: Integer, cards: [{cardIdentifier: String}], activePlayerIndex: Integer, commWay: CommWay.UPDATE}
 
 ## Error Packet
 
