@@ -71,7 +71,9 @@ These Packet indicate the beginning of a new round and their respective name as 
 ## Table Status Packet
 This is the answer to all Game Action Packets.
 
-* UPDATE: {type: PacketType.STATUS, tableid: Integer, player: [{name: String, chips: Integer, betted: Integer, fold: boolean}], pot: Integer, cards: [{cardIdentifier: String}], activePlayerIndex: Integer}
+* UPDATE: { type: PacketType.STATUS, tableid: Integer, player: [{name: String, chips: Integer, betted: Integer, fold: boolean}], pot: Integer, cards: [{cardIdentifier: String}], activePlayerIndex: Integer }
 
-## Answer Packet
+## Error Packet
+
+* ANSWER: { type: PacketType.ERROR, error: String, commway: CommWay.ANSWER }
 
