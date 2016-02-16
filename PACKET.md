@@ -74,7 +74,7 @@ These Packet indicate the beginning of a new round and their respective name as 
 ## Table Status Packet
 This is the answer to all Game Action Packets.
 
-* UPDATE: { type: PacketType.STATUS, tableid: Integer, player: [{name: String, chips: Integer, betted: Integer, fold: boolean}], pot: Integer, cards: [{cardIdentifier: String}], activePlayerIndex: Integer, commWay: CommWay.UPDATE}
+* UPDATE: { type: PacketType.STATUS, tableid: Integer, player: [{emptySeat: boolean, name: String, chips: Integer, betted: Integer, fold: boolean}], pot: Integer, cards: [{cardIdentifier: String}], activePlayerIndex: Integer, commWay: CommWay.UPDATE}
 
 ## Error Packet
 
