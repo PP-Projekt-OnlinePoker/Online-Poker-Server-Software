@@ -5,6 +5,8 @@ All JSON Keys are definied in the Event Class as static final. [Event.java](http
 ### Login Packet /FB02/
 
 * REQUEST: { type: [PacketType](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).LOGIN, username: String, password: String, [CommWay](https://github.com/PP-Projekt-OnlinePoker/Online-Poker-Server-Software/blob/master/src/de/szut/dqi12/holdem/helper/PacketType.java).REQUEST }
+* ANSWER: { type: PacketType.ANSWER, playerId: Integer, commWay: CommWay.ANSWER} 
+
 
 ### Register Packet /FB01/
 
