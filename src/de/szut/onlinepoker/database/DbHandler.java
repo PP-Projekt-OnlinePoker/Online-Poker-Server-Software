@@ -152,8 +152,19 @@ public class DbHandler {
 	}
 	
 	public boolean updatePlayer(Player player, Integer money){
-		this.getPlayer(player);
-		player.setMoney(money);
+		
+		Integer id = this.getPlayer(player).getPlayerId();
+		System.out.println("Opened database successfully");
+
+		String sql = "Update Users SET money ='"+money+"' WHERE Id ='"+ id + "' ;";
+		try {
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Money Updated");
+
 		return true;
 	}
 	
