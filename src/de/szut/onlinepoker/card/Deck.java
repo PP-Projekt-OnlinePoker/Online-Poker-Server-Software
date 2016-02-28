@@ -7,10 +7,10 @@ public class Deck {
 
 	private ArrayList<Card> deck;
 	
-	
 	public Deck(){
 		init();
 	}
+
 	private void init(){
 		deck = new ArrayList<Card>(52);
 		deck.add(new Card("2d"));
@@ -66,7 +66,6 @@ public class Deck {
 		deck.add(new Card("Ac"));
 		deck.add(new Card("As"));
 		Collections.shuffle(deck);
-		
 	}
 	
 	/**

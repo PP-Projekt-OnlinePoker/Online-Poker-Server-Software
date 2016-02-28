@@ -33,6 +33,8 @@ public class TableHandle implements Runnable {
 		default:
 			break;
 		}
+
+		return e;
 	}
 	
 	public void updatePlayers(Event e){

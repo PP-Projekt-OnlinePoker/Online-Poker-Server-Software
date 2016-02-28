@@ -3,80 +3,80 @@ package de.szut.dqi12.holdem.helper;
 
 public class Player {
 
-	public Integer playerId;
-	public Integer money;
-	public String username;
-	public String vorname;
-	public String nachname;
-	public String eMail;
-	public String password;
-	
-	/**
-	 * Login constructor
-	 * @param username
-	 * @param password
-	 */
-	public Player(String username, String password){
-		this.username = username;
-		this.password = password;
-	}
+    public Integer playerId;
+    public Integer money;
+    public String username;
+    public String vorname;
+    public String nachname;
+    public String eMail;
+    public String password;
 
-	public Integer getPlayerId() {
-		return playerId;
-	}
+    /**
+     * Login constructor
+     *
+     * @param username
+     * @param password
+     */
+    public Player(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
-	public void setPlayerId(Integer playerId) {
-		this.playerId = playerId;
-	}
+    public Integer getPlayerId() {
+        return playerId;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setPlayerId(Integer playerId) {
+        this.playerId = playerId;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getVorname() {
-		return vorname;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setVorname(String vorname) {
-		this.vorname = vorname;
-	}
+    public String getVorname() {
+        return vorname;
+    }
 
-	public String getNachname() {
-		return nachname;
-	}
+    public void setVorname(String vorname) {
+        this.vorname = vorname;
+    }
 
-	public void setNachname(String nachname) {
-		this.nachname = nachname;
-	}
+    public String getNachname() {
+        return nachname;
+    }
 
-	public String geteMail() {
-		return eMail;
-	}
+    public void setNachname(String nachname) {
+        this.nachname = nachname;
+    }
 
-	public void seteMail(String eMail) {
-		this.eMail = eMail;
-	}
+    public String geteMail() {
+        return eMail;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public Integer getMoney() {
-		return money;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setMoney(Integer money) {
-		this.money = money;
-	}
-	
-	
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+
 
 }

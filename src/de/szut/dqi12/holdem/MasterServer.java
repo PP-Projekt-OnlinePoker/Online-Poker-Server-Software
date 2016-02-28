@@ -29,7 +29,6 @@ public class MasterServer {
 		try {
 			db = new DbHandler();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

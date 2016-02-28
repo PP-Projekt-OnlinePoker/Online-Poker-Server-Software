@@ -20,11 +20,11 @@ public class HandEvaluator {
 	public static int PAIR = 2;
 	public static int HIGH_CARD = 1;
 
-	public HandEvaluator(Card[] cardss) {
-		if (cardss.length != 7) {
+	public HandEvaluator(Card[] cards) {
+		if (cards.length != 7) {
 			throw new InvalidParameterException("number of cards must be 7");
 		}
-		this.cards = cardss;
+		this.cards = cards;
 		evaluateCards();
 	}
 
