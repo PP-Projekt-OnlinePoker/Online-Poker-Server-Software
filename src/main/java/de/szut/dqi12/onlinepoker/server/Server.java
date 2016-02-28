@@ -6,12 +6,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import de.szut.dqi12.onlinepoker.server.handler.PlayerConnectionHandler;
-import de.szut.dqi12.onlinepoker.server.handler.TableHandle;
-import de.szut.dqi12.onlinepoker.server.helper.Table;
-import de.szut.dqi12.onlinepoker.server.helper.packet.request.LogIn;
-import de.szut.dqi12.onlinepoker.server.helper.packet.request.Register;
-import de.szut.dqi12.onlinepoker.server.poker.database.Database;
+import de.szut.dqi12.onlinepoker.server.comm.handler.PlayerConnectionHandler;
+import de.szut.dqi12.onlinepoker.server.comm.handler.TableHandle;
+import de.szut.dqi12.onlinepoker.server.comm.Table;
+import de.szut.dqi12.onlinepoker.server.comm.packet.request.LogIn;
+import de.szut.dqi12.onlinepoker.server.comm.packet.request.Register;
+import de.szut.dqi12.onlinepoker.server.database.Database;
 import org.apache.log4j.Logger;
 
 public class Server {

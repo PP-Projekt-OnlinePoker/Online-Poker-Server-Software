@@ -1,7 +1,7 @@
 
 package de.szut.dqi12.onlinepoker.server;
 
-import de.szut.dqi12.onlinepoker.server.poker.database.Database;
+import de.szut.dqi12.onlinepoker.server.database.Database;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
