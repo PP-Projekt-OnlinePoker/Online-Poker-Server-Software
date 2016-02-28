@@ -1,5 +1,5 @@
 
-package de.szut.dqi12.holdem.helper;
+package de.szut.dqi12.onlinepoker.server.helper;
 
 public class Table {
 

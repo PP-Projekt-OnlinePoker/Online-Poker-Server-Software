@@ -1,5 +1,5 @@
 
-package de.szut.dqi12.holdem;
+package de.szut.dqi12.onlinepoker.server;
 
 public class Main {
 
