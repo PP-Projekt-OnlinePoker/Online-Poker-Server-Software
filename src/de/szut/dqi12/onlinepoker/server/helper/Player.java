@@ -42,7 +42,7 @@ public class Player {
         return vorname;
     }
 
-    public void setVorname(String vorname) {
+    public void setFirstname(String vorname) {
         this.vorname = vorname;
     }
 
@@ -50,7 +50,7 @@ public class Player {
         return nachname;
     }
 
-    public void setNachname(String nachname) {
+    public void setLastname(String nachname) {
         this.nachname = nachname;
     }
 
@@ -58,7 +58,7 @@ public class Player {
         return eMail;
     }
 
-    public void seteMail(String eMail) {
+    public void setEmail(String eMail) {
         this.eMail = eMail;
     }
 

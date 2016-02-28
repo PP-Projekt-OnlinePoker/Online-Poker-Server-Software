@@ -4,14 +4,17 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-import de.szut.dqi12.onlinepoker.server.MasterServer;
+import de.szut.dqi12.onlinepoker.server.Server;
 import de.szut.dqi12.onlinepoker.server.exceptions.CouldntAnswerException;
 import de.szut.dqi12.onlinepoker.server.helper.Event;
 
 public class PlayerHandle implements Runnable {
 
+    private Server server;
+
     private Socket clientSocket;
     private Scanner in;
+
     private boolean loggedIn;
     private Integer currentTableId;
     private boolean isInTable;
@@ -19,10 +22,18 @@ public class PlayerHandle implements Runnable {
     private static final String ERROR_MSG = "Konnte die Aktion nicht ausführen.";
     private static final String ERROR_LOGIN = "Falsches Passwort oder Username.";
 
-    public PlayerHandle(Socket client) {
+    public PlayerHandle(Socket client, Server server) {
+        //Kein eingeloggter Spieler
         this.loggedIn = false;
+
+        //Spieler ist anfangs nicht an einem Tisch
         this.isInTable = false;
+
+        //Client-Socket für Packetaustausch in Member speichern
         this.clientSocket = client;
+
+        //Master-Server für Packet-Handling in Member speichern
+        this.server = server;
     }
 
     @Override
@@ -59,37 +70,7 @@ public class PlayerHandle implements Runnable {
 
         Event answer = new Event(e.getClientSocket(), ERROR_MSG);
 
-        switch (e.getType()) {
-            case ALLIN:
-            case BET:
-            case CALL:
-            case CHECK:
-            case FOLD:
-            case RAISE:
-                MasterServer.getInstance().getTableById(currentTableId).handleEvent(e);
-                break;
-            case CREATETABLE:
-
-                break;
-            case GETTABLELIST:
-                answer = MasterServer.getInstance().getTableListEvent();
-                break;
-            case JOINTABLE:
-                break;
-            case LOGIN:
-                break;
-            case LOGOUT:
-
-                break;
-
-            case REGISTER:
-                break;
-            default:
-                answer = new Event(e.getClientSocket(), ERROR_MSG);
-                break;
-
-
-        }
+        //TODO: Handle events
 
         e.answer(answer);
     }
