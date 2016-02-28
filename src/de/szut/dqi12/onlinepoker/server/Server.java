@@ -61,6 +61,4 @@ public class Server {
     public TableHandle getTableById(Integer tableId) {
         return tables.get(tableId);
     }
-
-
 }
