@@ -1,6 +1,5 @@
 package de.szut.dqi12.onlinepoker.server.handler;
 
-import de.szut.dqi12.onlinepoker.server.helper.Event;
 import de.szut.dqi12.onlinepoker.server.helper.Player;
 import de.szut.dqi12.onlinepoker.server.helper.Table;
 

@@ -3,12 +3,15 @@ package de.szut.dqi12.onlinepoker.server.poker.player;
 import de.szut.dqi12.onlinepoker.server.poker.card.Card;
 
 public class TablePlayer {
-
-	
 	private boolean fold;
 	private Card[] cards;
 	private boolean allIn;
-	
+
+	public TablePlayer() {
+		//Hole-Cards des Spielers
+		cards = new Card[2];
+	}
+
 	public void setFold(boolean f){
 		fold = f;
 	}
@@ -36,7 +39,4 @@ public class TablePlayer {
 	public boolean isAllIn(){
 		return allIn;
 	}
-	
-	
-	
 }

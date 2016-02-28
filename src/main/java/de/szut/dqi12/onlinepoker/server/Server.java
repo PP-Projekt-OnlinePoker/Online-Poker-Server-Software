@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import de.szut.dqi12.onlinepoker.server.handler.PlayerHandle;
+import de.szut.dqi12.onlinepoker.server.handler.PlayerConnectionHandler;
 import de.szut.dqi12.onlinepoker.server.handler.TableHandle;
 import de.szut.dqi12.onlinepoker.server.helper.Table;
 import de.szut.dqi12.onlinepoker.server.poker.database.Database;
@@ -16,7 +16,7 @@ public class Server {
     private ServerSocket serverSocket;
     private Database database;
 
-    private ArrayList<PlayerHandle> connectedPlayers;
+    private ArrayList<PlayerConnectionHandler> connectedPlayers;
     private ArrayList<TableHandle> tables;
 
     private Logger log = Logger.getLogger("Server");
@@ -46,7 +46,7 @@ public class Server {
             log.info("Neue Verbindung von " + newConnection.getInetAddress() + " akzeptiert");
 
             //Neue Verbindung akzeptieren
-            PlayerHandle newPlayerConnection = new PlayerHandle(newConnection, this);
+            PlayerConnectionHandler newPlayerConnection = new PlayerConnectionHandler(newConnection, this);
 
             //Player Verbindung threaden
             new Thread(newPlayerConnection).start();
