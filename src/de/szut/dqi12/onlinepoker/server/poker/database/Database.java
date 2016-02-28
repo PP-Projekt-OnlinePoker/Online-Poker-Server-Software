@@ -4,9 +4,10 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.sql.*;
 
-import de.szut.dqi12.onlinepoker.server.helper.Player;
 import de.szut.dqi12.onlinepoker.server.poker.database.table.TablesTable;
 import de.szut.dqi12.onlinepoker.server.poker.database.table.UsersTable;
+
+import org.apache.log4j.Logger;
 
 public class Database implements Closeable {
     Connection connection;
@@ -14,12 +15,20 @@ public class Database implements Closeable {
     private UsersTable usersTable;
     private TablesTable tablesTable;
 
+    private Logger log;
+
     public Database(String databaseFileName) throws ClassNotFoundException, SQLException {
+        log = Logger.getLogger("Database");
+
+        //SqLite Database Connector Klasse aus JAR laden
         Class.forName("org.sqlite.JDBC");
 
         //Verbindung zur Datenbank herstellen
         connection = DriverManager.getConnection("jdbc:sqlite:" + databaseFileName);
 
+        log.info("Verbindung zur Datenbank erfolgreich hergestellt.");
+
+        //Table Objekte initialisieren
         usersTable = new UsersTable(connection);
         tablesTable = new TablesTable(connection);
     }
