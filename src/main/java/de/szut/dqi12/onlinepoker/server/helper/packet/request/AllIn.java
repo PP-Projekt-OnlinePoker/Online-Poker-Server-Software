@@ -1,15 +1,19 @@
-package de.szut.dqi12.onlinepoker.server.helper.packet;
+package de.szut.dqi12.onlinepoker.server.helper.packet.request;
 
 
 import de.szut.dqi12.onlinepoker.server.helper.Packet;
 
-public class Fold implements Packet {
+public class AllIn implements Packet {
 
 	public int playerId;
 	public int tableId;
-	public Fold(int playerId, int tableId) {
+	public AllIn(int playerId, int tableId) {
 		this.playerId = playerId;
 		this.tableId = tableId;
+	}
+
+	public String toJSON() {
+		return null;
 	}
 
 	public int getPlayerId() {
@@ -26,9 +30,5 @@ public class Fold implements Packet {
 
 	public void setTableId(int tableId) {
 		this.tableId = tableId;
-	}
-
-	public String toJSON() {
-		return null;
 	}
 }

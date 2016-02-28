@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import de.szut.dqi12.onlinepoker.server.handler.PlayerConnectionHandler;
 import de.szut.dqi12.onlinepoker.server.handler.TableHandle;
 import de.szut.dqi12.onlinepoker.server.helper.Table;
+import de.szut.dqi12.onlinepoker.server.helper.packet.request.LogIn;
+import de.szut.dqi12.onlinepoker.server.helper.packet.request.Register;
 import de.szut.dqi12.onlinepoker.server.poker.database.Database;
 import org.apache.log4j.Logger;
 
@@ -58,12 +60,12 @@ public class Server {
         }
     }
 
-    public boolean login(String username, String password) {
-        return database.usersTable().login(username, password);
+    public boolean login(LogIn login) {
+        return database.usersTable().login(login.getUsername(), login.getPassword());
     }
 
-    public boolean register(String username, String password, String firstname, String lastname, String email) {
-        return database.usersTable().register(username, password, firstname, lastname, email);
+    public boolean register(Register register) {
+        return database.usersTable().register(register.getUsername(), register.getPassword(), register.getFirstname(), register.getLastname(), register.getEmail());
     }
 
     public ArrayList<Table> getTableList() {

@@ -1,4 +1,4 @@
-package de.szut.dqi12.onlinepoker.server.helper.packet;
+package de.szut.dqi12.onlinepoker.server.helper.packet.request;
 
 
 import de.szut.dqi12.onlinepoker.server.helper.Packet;
@@ -10,13 +10,15 @@ public class Register implements Packet {
 	private String username;
 	private String password;
 	private String email;
-	private String realName;
+	private String firstname;
+	private String lastname;
 
-	public Register(String username, String password, String email, String realName) {
+	public Register(String username, String password, String email, String firstname, String lastname) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.realName = realName;
+		this.firstname = firstname;
+		this.lastname = lastname;
 	}
 
 	public String getUsername() {
@@ -31,8 +33,12 @@ public class Register implements Packet {
 		return email;
 	}
 
-	public String getRealName() {
-		return realName;
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
 	}
 
 	public String toJSON() {
@@ -41,8 +47,9 @@ public class Register implements Packet {
 		jsonObject.put(Packet.KEY_ACTION, PacketType.REGISTER);
 		jsonObject.put("username", this.username);
 		jsonObject.put("password", this.password);
+		jsonObject.put("firstname", this.firstname);
+		jsonObject.put("lastname", this.lastname);
 		jsonObject.put("email", this.email);
-		jsonObject.put("real_name", this.realName);
 
 		return jsonObject.toString();
 	}

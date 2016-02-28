@@ -5,14 +5,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 
 import de.szut.dqi12.onlinepoker.server.Server;
-import de.szut.dqi12.onlinepoker.server.exceptions.CouldntAnswerException;
+import de.szut.dqi12.onlinepoker.server.helper.Packet;
+import de.szut.dqi12.onlinepoker.server.helper.PacketParser;
 import de.szut.dqi12.onlinepoker.server.helper.PacketType;
-import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
+import de.szut.dqi12.onlinepoker.server.helper.packet.request.LogIn;
+import de.szut.dqi12.onlinepoker.server.helper.packet.request.Register;
+import de.szut.dqi12.onlinepoker.server.helper.packet.response.SimpleResponse;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 public class PlayerConnectionHandler implements Runnable {
 
@@ -48,18 +50,16 @@ public class PlayerConnectionHandler implements Runnable {
         this.server = server;
     }
 
-    @Override
     public void run() {
-        try(
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        ) {
-            this.out = out;
-            this.in = in;
+        try {
+            this.out = new PrintWriter(clientSocket.getOutputStream(), true);
+            this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
             while (clientSocket.isConnected()) {
                 //Solange der Client verbunden ist, warte auf Nachrichten
                 String jsonEncodedRequest  = in.readLine();
+
+                log.info("Packet vom Client erhalten: " + jsonEncodedRequest);
 
                 handleRequest(jsonEncodedRequest);
             }
@@ -71,15 +71,19 @@ public class PlayerConnectionHandler implements Runnable {
     }
 
     private void handleRequest(String jsonEncodedRequest){
-        JSONObject parsedRequest =  (JSONObject) JSONSerializer.toJSON(jsonEncodedRequest);
-
+        JSONObject parsedRequest = new JSONObject(jsonEncodedRequest);
         PacketType packetType = (PacketType) parsedRequest.get("action");
+
+        Packet parsedPacket = PacketParser.parse(parsedRequest);
+        Packet response = null;
 
         switch (packetType){
             case LOGIN:
+                response = handleLogin((LogIn)parsedPacket);
                 break;
             case REGISTER:
-                throw new UnsupportedOperationException("This packet-Type is not supported yet");
+                response = handleRegister((Register)parsedPacket);
+                break;
             case LOGOUT:
                 throw new UnsupportedOperationException("This packet-Type is not supported yet");
             case FOLD:
@@ -103,6 +107,36 @@ public class PlayerConnectionHandler implements Runnable {
             case STATUS:
                 throw new UnsupportedOperationException("This packet-Type is not supported yet");
         }
+
+        if(response != null){
+            log.info("Sende Packet zum Client: " + response.toJSON());
+
+            sendPacket(response);
+        }
+    }
+
+    private void sendPacket(Packet packet){
+        out.write(packet.toJSON());
+    }
+
+    private Packet handleLogin(LogIn login){
+        SimpleResponse response = new SimpleResponse(PacketType.LOGIN);
+
+        //Login versuchen
+        response.setSuccess(server.login(login));
+
+        //Login-Response senden
+        return response;
+    }
+
+    private Packet handleRegister(Register register){
+        SimpleResponse response = new SimpleResponse(PacketType.LOGIN);
+
+        //Login versuchen
+        response.setSuccess(server.register(register));
+
+        //Login-Response senden
+        return response;
     }
 
 }

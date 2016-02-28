@@ -1,6 +1,7 @@
 package de.szut.dqi12.onlinepoker.server.helper;
 
-import org.json.JSONException;
+import de.szut.dqi12.onlinepoker.server.helper.packet.request.LogIn;
+import de.szut.dqi12.onlinepoker.server.helper.packet.request.Register;
 import org.json.JSONObject;
 
 /**
@@ -8,19 +9,21 @@ import org.json.JSONObject;
  */
 public class PacketParser {
 
-    public static PacketParser parse(String received) throws PacketParseException{
-        try{
-            JSONObject jsonParsed = new JSONObject(received);
-
+    public static Packet parse(JSONObject jsonParsed){
             //Action in PacketType konvertieren
             PacketType packetType = (PacketType) jsonParsed.get(Packet.KEY_ACTION);
 
             switch (packetType){
                 case LOGIN:
-
-                    break;
+                    return new LogIn(jsonParsed.getString("username"), jsonParsed.getString("password"));
                 case REGISTER:
-                    break;
+                    return new Register(
+                        jsonParsed.getString("username"),
+                        jsonParsed.getString("password"),
+                        jsonParsed.getString("email"),
+                        jsonParsed.getString("firstname"),
+                        jsonParsed.getString("lastname")
+                    );
                 case LOGOUT:
                     break;
                 case GETTABLELIST:
@@ -47,9 +50,6 @@ public class PacketParser {
                     break;
             }
 
-            return new PacketParser();
-        } catch(JSONException e){
-            throw new PacketParseException();
-        }
+            return null;
     }
 }

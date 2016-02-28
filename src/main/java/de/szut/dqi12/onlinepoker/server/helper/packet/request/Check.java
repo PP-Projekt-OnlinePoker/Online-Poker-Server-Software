@@ -1,4 +1,4 @@
-package de.szut.dqi12.onlinepoker.server.helper.packet;
+package de.szut.dqi12.onlinepoker.server.helper.packet.request;
 
 
 import de.szut.dqi12.onlinepoker.server.helper.Packet;

@@ -1,4 +1,4 @@
-package de.szut.dqi12.onlinepoker.server.helper.packet;
+package de.szut.dqi12.onlinepoker.server.helper.packet.request;
 
 import de.szut.dqi12.onlinepoker.server.helper.Packet;
 import de.szut.dqi12.onlinepoker.server.helper.PacketType;
@@ -14,6 +14,13 @@ public class LogIn implements Packet {
 		this.password = password;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
 
 	public String toJSON() {
 		JSONObject jsonObject = new JSONObject();
