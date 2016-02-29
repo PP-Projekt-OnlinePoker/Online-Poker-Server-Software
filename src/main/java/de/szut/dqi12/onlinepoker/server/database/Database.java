@@ -18,7 +18,7 @@ public class Database implements Closeable {
     private Logger log;
 
     public Database(String databaseFileName) throws ClassNotFoundException, SQLException {
-        log = Logger.getLogger("Database");
+        log = Logger.getLogger(this.getClass().getName());
 
         //SqLite Database Connector Klasse aus JAR laden
         Class.forName("org.sqlite.JDBC");

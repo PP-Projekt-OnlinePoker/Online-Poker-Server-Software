@@ -7,7 +7,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import de.szut.dqi12.onlinepoker.server.comm.handler.PlayerConnectionHandler;
-import de.szut.dqi12.onlinepoker.server.comm.handler.TableHandle;
 import de.szut.dqi12.onlinepoker.server.comm.Table;
 import de.szut.dqi12.onlinepoker.server.comm.packet.request.LogIn;
 import de.szut.dqi12.onlinepoker.server.comm.packet.request.Register;
@@ -19,9 +18,9 @@ public class Server {
     private Database database;
 
     private ArrayList<PlayerConnectionHandler> connectedPlayers;
-    private ArrayList<TableHandle> tables;
+    private ArrayList<String> tables;
 
-    private Logger log = Logger.getLogger("Server");
+    private Logger log = Logger.getLogger(this.getClass().getName());
 
     public Server(Database database) {
         this.database = database;
@@ -70,9 +69,5 @@ public class Server {
 
     public ArrayList<Table> getTableList() {
         return null;
-    }
-
-    public TableHandle getTableById(Integer tableId) {
-        return tables.get(tableId);
     }
 }

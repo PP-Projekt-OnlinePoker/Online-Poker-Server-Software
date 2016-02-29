@@ -28,7 +28,8 @@ public class SimpleResponse implements Packet{
     public String toJSON() {
         JSONObject json = new JSONObject();
 
-        json.put(Packet.KEY_ACTION, packetType);
+        json.put(Packet.KEY_ACTION, PacketType.RESPONSE);
+        json.put("source_type", this.packetType);
         json.put("success", success);
 
         return json.toString();

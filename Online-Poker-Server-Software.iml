@@ -20,19 +20,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="module-library" exported="">
-      <library name="log4j-1.2-api-2.5.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/log4j-1.2-api-2.5.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/lib/log4j-1.2-api-2.5-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/log4j-1.2-api-2.5-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
       <library name="sqlite-jdbc-3.8.11.2.jar">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/sqlite-jdbc-3.8.11.2.jar!/" />
@@ -42,5 +29,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" exported="" name="org.json:json:20160212" level="project" />
+    <orderEntry type="library" exported="" name="org.apache.logging.log4j:log4j-1.2-api:2.1" level="project" />
   </component>
 </module>

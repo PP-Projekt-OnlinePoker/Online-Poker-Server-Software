@@ -35,7 +35,7 @@ public class PlayerConnectionHandler implements Runnable {
     private Logger log;
 
     public PlayerConnectionHandler(Socket client, Server server) {
-        log = Logger.getLogger("PlayerConnectionHandler");
+        log = Logger.getLogger(this.getClass().getName());
 
         //Kein eingeloggter Spieler
         this.loggedIn = false;
