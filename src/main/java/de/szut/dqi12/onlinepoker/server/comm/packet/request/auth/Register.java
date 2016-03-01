@@ -1,8 +1,8 @@
-package de.szut.dqi12.onlinepoker.server.comm.packet.request;
+package de.szut.dqi12.onlinepoker.server.comm.packet.request.auth;
 
 
-import de.szut.dqi12.onlinepoker.server.comm.Packet;
-import de.szut.dqi12.onlinepoker.server.comm.PacketType;
+import de.szut.dqi12.onlinepoker.server.comm.packet.Packet;
+import de.szut.dqi12.onlinepoker.server.comm.packet.PacketType;
 import org.json.JSONObject;
 
 public class Register implements Packet {

@@ -1,13 +1,16 @@
-package de.szut.dqi12.onlinepoker.server.comm.packet.request;
+package de.szut.dqi12.onlinepoker.server.comm.packet.request.game;
 
-import de.szut.dqi12.onlinepoker.server.comm.Packet;
+import de.szut.dqi12.onlinepoker.server.comm.packet.Packet;
+import de.szut.dqi12.onlinepoker.server.comm.packet.PacketType;
 
-public class Bet implements Packet {
+public class Bet extends Packet {
 
 	public int playerId;
 	public int tableId;
 	public int amount;
 	public Bet(int playerId, int tableId, int amount) {
+		super(PacketType.BET);
+
 		this.playerId = playerId;
 		this.tableId = tableId;
 		this.amount = amount;

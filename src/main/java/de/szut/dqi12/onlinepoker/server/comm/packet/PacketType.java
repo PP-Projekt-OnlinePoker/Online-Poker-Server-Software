@@ -1,5 +1,5 @@
 
-package de.szut.dqi12.onlinepoker.server.comm;
+package de.szut.dqi12.onlinepoker.server.comm.packet;
 
 public enum PacketType {
 	//Tischaktionen
@@ -23,5 +23,5 @@ public enum PacketType {
 	LEAVETABLE,
 	STATUS,
 
-	RESPONSE
+	RESPONSE_LOGIN, REGISTER_RESPONSE,
 }

@@ -1,7 +1,7 @@
-package de.szut.dqi12.onlinepoker.server.comm.packet.request;
+package de.szut.dqi12.onlinepoker.server.comm.packet.request.game;
 
 
-import de.szut.dqi12.onlinepoker.server.comm.Packet;
+import de.szut.dqi12.onlinepoker.server.comm.packet.Packet;
 
 public class AllIn implements Packet {
 

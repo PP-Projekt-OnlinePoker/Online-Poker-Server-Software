@@ -7,12 +7,12 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import de.szut.dqi12.onlinepoker.server.Server;
-import de.szut.dqi12.onlinepoker.server.comm.Packet;
-import de.szut.dqi12.onlinepoker.server.comm.PacketParser;
-import de.szut.dqi12.onlinepoker.server.comm.PacketType;
-import de.szut.dqi12.onlinepoker.server.comm.packet.request.LogIn;
-import de.szut.dqi12.onlinepoker.server.comm.packet.request.Register;
-import de.szut.dqi12.onlinepoker.server.comm.packet.response.SimpleResponse;
+import de.szut.dqi12.onlinepoker.server.comm.packet.Packet;
+import de.szut.dqi12.onlinepoker.server.comm.packet.parse.PacketParser;
+import de.szut.dqi12.onlinepoker.server.comm.packet.PacketType;
+import de.szut.dqi12.onlinepoker.server.comm.packet.request.auth.LogIn;
+import de.szut.dqi12.onlinepoker.server.comm.packet.request.auth.Register;
+import de.szut.dqi12.onlinepoker.server.comm.packet.response.auth.LoginResponse;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
@@ -132,7 +132,7 @@ public class PlayerConnectionHandler implements Runnable {
      * @return
      */
     private Packet handleLogin(LogIn login){
-        SimpleResponse response = new SimpleResponse(PacketType.LOGIN);
+        LoginResponse response = new LoginResponse(PacketType.LOGIN);
 
         //Login versuchen
         response.setSuccess(server.login(login));
@@ -148,7 +148,7 @@ public class PlayerConnectionHandler implements Runnable {
      * @return
      */
     private Packet handleRegister(Register register){
-        SimpleResponse response = new SimpleResponse(PacketType.LOGIN);
+        LoginResponse response = new LoginResponse(PacketType.LOGIN);
 
         //Registrierung versuchen
         response.setSuccess(server.register(register));

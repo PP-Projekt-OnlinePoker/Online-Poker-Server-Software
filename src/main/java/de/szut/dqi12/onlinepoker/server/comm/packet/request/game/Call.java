@@ -1,13 +1,16 @@
-package de.szut.dqi12.onlinepoker.server.comm.packet.request;
+package de.szut.dqi12.onlinepoker.server.comm.packet.request.game;
 
 
-import de.szut.dqi12.onlinepoker.server.comm.Packet;
+import de.szut.dqi12.onlinepoker.server.comm.packet.Packet;
+import de.szut.dqi12.onlinepoker.server.comm.packet.PacketType;
 
-public class Call implements Packet {
+public class Call extends Packet {
 	public int tableID;
 	public int playerID;
 
 	public Call(int tableID, int playerID) {
+		super(PacketType.CALL);
+
 		this.tableID = tableID;
 		this.playerID = playerID;
 	}

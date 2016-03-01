@@ -1,6 +1,6 @@
 package de.szut.dqi12.onlinepoker.server.database.table;
 
-import de.szut.dqi12.onlinepoker.server.comm.Player;
+import de.szut.dqi12.onlinepoker.server.comm.packet.entity.Player;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -107,7 +107,7 @@ public class UsersTable extends DatabaseTable {
             //Player mit Daten aus dem Record befüllen
             player.setMoney(resultSet.getInt("money"));
             player.setEmail(resultSet.getString("email"));
-            player.setPlayerId(resultSet.getInt("id"));
+            player.setId(resultSet.getInt("id"));
             player.setLastname(resultSet.getString("lastname"));
             player.setFirstname(resultSet.getString("firstname"));
 

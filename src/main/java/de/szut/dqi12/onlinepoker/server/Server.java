@@ -7,9 +7,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import de.szut.dqi12.onlinepoker.server.comm.handler.PlayerConnectionHandler;
-import de.szut.dqi12.onlinepoker.server.comm.Table;
-import de.szut.dqi12.onlinepoker.server.comm.packet.request.LogIn;
-import de.szut.dqi12.onlinepoker.server.comm.packet.request.Register;
+import de.szut.dqi12.onlinepoker.server.comm.packet.entity.Table;
+import de.szut.dqi12.onlinepoker.server.comm.packet.request.auth.LogIn;
+import de.szut.dqi12.onlinepoker.server.comm.packet.request.auth.Register;
 import de.szut.dqi12.onlinepoker.server.database.Database;
 import org.apache.log4j.Logger;
 
