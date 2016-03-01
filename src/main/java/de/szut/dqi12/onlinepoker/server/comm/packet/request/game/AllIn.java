@@ -3,7 +3,7 @@ package de.szut.dqi12.onlinepoker.server.comm.packet.request.game;
 
 import de.szut.dqi12.onlinepoker.server.comm.packet.Packet;
 
-public class AllIn implements Packet {
+public class AllIn{
 
 	public int playerId;
 	public int tableId;

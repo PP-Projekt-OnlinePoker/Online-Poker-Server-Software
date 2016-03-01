@@ -5,7 +5,7 @@ import de.szut.dqi12.onlinepoker.server.comm.packet.Packet;
 import de.szut.dqi12.onlinepoker.server.comm.packet.PacketType;
 import org.json.JSONObject;
 
-public class Register implements Packet {
+public class Register extends Packet {
 
 	private String username;
 	private String password;
@@ -14,6 +14,8 @@ public class Register implements Packet {
 	private String lastname;
 
 	public Register(String username, String password, String email, String firstname, String lastname) {
+		super(PacketType.REGISTER);
+
 		this.username = username;
 		this.password = password;
 		this.email = email;

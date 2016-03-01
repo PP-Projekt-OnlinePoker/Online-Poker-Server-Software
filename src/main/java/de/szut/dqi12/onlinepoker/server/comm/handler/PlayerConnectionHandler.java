@@ -1,18 +1,17 @@
 package de.szut.dqi12.onlinepoker.server.comm.handler;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 import de.szut.dqi12.onlinepoker.server.Server;
 import de.szut.dqi12.onlinepoker.server.comm.packet.Packet;
+import de.szut.dqi12.onlinepoker.server.comm.packet.entity.Player;
 import de.szut.dqi12.onlinepoker.server.comm.packet.parse.PacketParser;
 import de.szut.dqi12.onlinepoker.server.comm.packet.PacketType;
 import de.szut.dqi12.onlinepoker.server.comm.packet.request.auth.LogIn;
 import de.szut.dqi12.onlinepoker.server.comm.packet.request.auth.Register;
 import de.szut.dqi12.onlinepoker.server.comm.packet.response.auth.LoginResponse;
+import de.szut.dqi12.onlinepoker.server.comm.packet.response.auth.RegisterResponse;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
@@ -56,12 +55,11 @@ public class PlayerConnectionHandler implements Runnable {
             this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
             while (clientSocket.isConnected()) {
-                //Solange der Client verbunden ist, warte auf Nachrichten
-                String jsonEncodedRequest  = in.readLine();
+                String jsonEncodedRequest = in.readLine();
 
-                log.info("Packet vom Client erhalten: " + jsonEncodedRequest);
-
-                handleRequest(jsonEncodedRequest);
+                if(jsonEncodedRequest != null && !(jsonEncodedRequest.equals(""))){
+                    handleRequest(jsonEncodedRequest);
+                }
             }
         } catch(IOException ex){
             log.error("Fehler beim öffnen des Output-Streams für einen Client");
@@ -74,7 +72,7 @@ public class PlayerConnectionHandler implements Runnable {
         JSONObject parsedRequest = new JSONObject(jsonEncodedRequest);
         PacketType packetType = (PacketType) parsedRequest.get("action");
 
-        Packet parsedPacket = PacketParser.parse(parsedRequest);
+        Object parsedPacket = PacketParser.parse(parsedRequest);
         Packet response = null;
 
         switch (packetType){
@@ -122,7 +120,7 @@ public class PlayerConnectionHandler implements Runnable {
      * @param packet
      */
     private void sendPacket(Packet packet){
-        out.write(packet.toJSON());
+        out.println(packet.toJSON());
     }
 
     /**
@@ -132,13 +130,11 @@ public class PlayerConnectionHandler implements Runnable {
      * @return
      */
     private Packet handleLogin(LogIn login){
-        LoginResponse response = new LoginResponse(PacketType.LOGIN);
+        boolean loginSuccess = server.login(login);
+        Player player = null;
 
-        //Login versuchen
-        response.setSuccess(server.login(login));
-
-        //Login-Response senden
-        return response;
+        //Registrierung versuchen
+        return new RegisterResponse(loginSuccess, player);
     }
 
     /**
@@ -148,13 +144,11 @@ public class PlayerConnectionHandler implements Runnable {
      * @return
      */
     private Packet handleRegister(Register register){
-        LoginResponse response = new LoginResponse(PacketType.LOGIN);
+        boolean registerSuccess = server.register(register);
+        Player player = null;
 
         //Registrierung versuchen
-        response.setSuccess(server.register(register));
-
-        //Login-Response senden
-        return response;
+        return new RegisterResponse(registerSuccess, player);
     }
 
 }
